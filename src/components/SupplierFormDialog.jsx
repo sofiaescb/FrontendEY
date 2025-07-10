@@ -12,6 +12,7 @@ import {
   Box
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import './SupplierFormDialog.css';
 
 const SupplierFormDialog = ({
   open,
@@ -28,33 +29,24 @@ const SupplierFormDialog = ({
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle 
-        sx={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
-          backgroundColor: '#f8f9fa',
-          borderBottom: '1px solid #e0e0e0',
-          pb: 2
-        }}
-      >
+      <DialogTitle className="dialog-header">
         <Box>
-          <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold', color: '#333' }}>
+          <Typography variant="h5" component="h2" className="dialog-title">
             {isEdit ? 'Editar Proveedor' : 'Agregar Nuevo Proveedor'}
           </Typography>
-          <Typography variant="body2" sx={{ color: '#666', mt: 0.5 }}>
+          <Typography variant="body2" className="dialog-subtitle">
             {isEdit ? 'Actualiza la información del proveedor a continuación.' : 'Ingresa la información del proveedor a continuación.'}
           </Typography>
         </Box>
-        <IconButton onClick={onClose} size="small" sx={{ color: '#666' }}>
+        <IconButton onClick={onClose} size="small" className="close-button">
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ p: 3, backgroundColor: '#fafafa' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 1 }}>
+      <DialogContent className="dialog-content">
+        <Box className="form-container">
           
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               Razón Social
             </Typography>
             <TextField
@@ -64,26 +56,12 @@ const SupplierFormDialog = ({
               required
               placeholder="Ingrese la razón social"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white',
-                  '& fieldset': {
-                    borderColor: '#ffd700',
-                    borderWidth: 2
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#ffd700',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#ffd700',
-                  },
-                }
-              }}
+              className="form-input-highlighted"
             />
           </Box>
           
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               Nombre Comercial
             </Typography>
             <TextField
@@ -92,16 +70,12 @@ const SupplierFormDialog = ({
               fullWidth
               placeholder="Ingrese el nombre comercial"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               RUC
             </Typography>
             <TextField
@@ -111,16 +85,12 @@ const SupplierFormDialog = ({
               required
               placeholder="Ingrese el RUC"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               Teléfono
             </Typography>
             <TextField
@@ -129,16 +99,12 @@ const SupplierFormDialog = ({
               fullWidth
               placeholder="Ingrese el teléfono"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               Email
             </Typography>
             <TextField
@@ -149,16 +115,12 @@ const SupplierFormDialog = ({
               required
               placeholder="Ingrese el email"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               Dirección
             </Typography>
             <TextField
@@ -167,16 +129,12 @@ const SupplierFormDialog = ({
               fullWidth
               placeholder="Ingrese la dirección"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               País
             </Typography>
             <TextField
@@ -186,11 +144,7 @@ const SupplierFormDialog = ({
               fullWidth
               placeholder="Seleccione un país"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             >
               {countries.map((pais) => (
                 <MenuItem key={pais} value={pais}>{pais}</MenuItem>
@@ -198,8 +152,8 @@ const SupplierFormDialog = ({
             </TextField>
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               Sitio Web
             </Typography>
             <TextField
@@ -208,16 +162,12 @@ const SupplierFormDialog = ({
               fullWidth
               placeholder="Ingrese el sitio web"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'medium', color: '#333', minWidth: '150px' }}>
+          <Box className="form-row">
+            <Typography variant="subtitle2" className="form-label">
               Facturación Anual (USD)
             </Typography>
             <TextField
@@ -227,45 +177,21 @@ const SupplierFormDialog = ({
               fullWidth
               placeholder="Ingrese la facturación anual"
               size="small"
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'white'
-                }
-              }}
+              className="form-input"
             />
           </Box>
 
         </Box>
       </DialogContent>
-      <DialogActions sx={{ p: 3, backgroundColor: '#f8f9fa', borderTop: '1px solid #e0e0e0' }}>
-        <Button 
-          onClick={onClose}
-          sx={{ 
-            color: '#666',
-            textTransform: 'none',
-            fontWeight: 'medium'
-          }}
-        >
+      <DialogActions className="dialog-actions">
+        <Button onClick={onClose} className="cancel-button">
           Cancelar
         </Button>
         <Button
           onClick={onSubmit}
           variant="contained"
           disabled={!(supplier.razonSocial && supplier.identificacionTributaria && supplier.email)}
-          sx={{
-            backgroundColor: '#ffd700',
-            color: '#333',
-            textTransform: 'none',
-            fontWeight: 'bold',
-            px: 4,
-            '&:hover': {
-              backgroundColor: '#ffed4e',
-            },
-            '&:disabled': {
-              backgroundColor: '#e0e0e0',
-              color: '#999'
-            }
-          }}
+          className="submit-button"
         >
           {isEdit ? 'Actualizar Proveedor' : 'Agregar Proveedor'}
         </Button>

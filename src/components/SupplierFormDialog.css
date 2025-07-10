@@ -1,0 +1,128 @@
+/* SupplierFormDialog.css - Estilos reutilizables para formularios de diálogo */
+
+/* Header del diálogo */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 16px;
+}
+
+.dialog-title {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.dialog-subtitle {
+  color: #666;
+  margin-top: 4px;
+  font-size: 0.875rem;
+}
+
+.close-button {
+  color: #666;
+}
+
+/* Contenido del diálogo */
+.dialog-content {
+  padding: 24px;
+  background-color: #fafafa;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+/* Filas del formulario */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+  min-width: 150px;
+  font-size: 0.875rem;
+}
+
+/* Estilos para inputs */
+.form-input {
+  background-color: white;
+}
+
+.form-input-highlighted {
+  background-color: white;
+}
+
+.form-input-highlighted .MuiOutlinedInput-root fieldset {
+  border-color: #ffd700;
+  border-width: 2px;
+}
+
+.form-input-highlighted .MuiOutlinedInput-root:hover fieldset {
+  border-color: #ffd700;
+}
+
+.form-input-highlighted .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #ffd700;
+}
+
+/* Acciones del diálogo */
+.dialog-actions {
+  padding: 24px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.cancel-button {
+  color: #666;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.submit-button {
+  background-color: #ffd700;
+  color: #333;
+  text-transform: none;
+  font-weight: bold;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.submit-button:hover {
+  background-color: #ffed4e;
+}
+
+.submit-button:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .form-label {
+    min-width: auto;
+  }
+  
+  .dialog-content {
+    padding: 16px;
+  }
+  
+  .dialog-actions {
+    padding: 16px;
+  }
+}
