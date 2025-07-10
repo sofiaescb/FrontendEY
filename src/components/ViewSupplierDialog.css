@@ -1,0 +1,16 @@
+.css-1niqckn {
+  padding-left: 8px !important;
+}
+
+.MuiDialogContent-root {
+  flex: unset !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.MuiDialog-paper {
+  height: auto !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+}

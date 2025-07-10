@@ -1,4 +1,5 @@
 // src/components/SupplierFormDialog.jsx
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -13,6 +14,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './SupplierFormDialog.css';
+import { getFieldError, areAllFieldsValid } from '../utils/supplierValidations';
 
 const SupplierFormDialog = ({
   open,
@@ -24,8 +26,55 @@ const SupplierFormDialog = ({
 }) => {
   const isEdit = mode === 'edit';
   const countries = ['Perú', 'Chile', 'México', 'Argentina', 'Colombia', 'Brasil', 'Ecuador'];
+  const [showValidationErrors, setShowValidationErrors] = useState(false);
+
+  // Resetear errores cuando se abre/cierra el dialog
+  useEffect(() => {
+    if (open) {
+      setShowValidationErrors(false);
+    }
+  }, [open]);
+
+  // Nuevo useEffect para limpiar el formulario cuando se cierre en modo agregar
+  useEffect(() => {
+    if (!open && mode === 'add' && onSupplierChange) {
+      const emptySupplier = {
+        razonSocial: '',
+        nombreComercial: '',
+        identificacionTributaria: '',
+        telefono: '',
+        email: '',
+        direccion: '',
+        pais: '',
+        sitioWeb: '',
+        facturacionAnual: ''
+      };
+      onSupplierChange(emptySupplier);
+    }
+  }, [open, mode, onSupplierChange]);
 
   if (!supplier) return null;
+
+  const handleSubmit = () => {
+    setShowValidationErrors(true);
+    
+    // Validar todos los campos
+    if (areAllFieldsValid(supplier)) {
+      onSubmit();
+      setShowValidationErrors(false); // Resetear después de envío exitoso
+    }
+    // Si hay errores, se mantendrán visibles debido a showValidationErrors = true
+  };
+
+  const getFieldErrorMessage = (fieldName, value) => {
+    if (!showValidationErrors) return '';
+    return getFieldError(fieldName, value);
+  };
+
+  const hasFieldError = (fieldName, value) => {
+    if (!showValidationErrors) return false;
+    return !!getFieldError(fieldName, value);
+  };
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
@@ -57,6 +106,9 @@ const SupplierFormDialog = ({
               placeholder="Ingrese la razón social"
               size="small"
               className="form-input-highlighted"
+              error={hasFieldError('razonSocial', supplier.razonSocial)}
+              helperText={getFieldErrorMessage('razonSocial', supplier.razonSocial)}
+              inputProps={{ maxLength: 100 }}
             />
           </Box>
           
@@ -68,9 +120,13 @@ const SupplierFormDialog = ({
               value={supplier.nombreComercial}
               onChange={(e) => onSupplierChange({ ...supplier, nombreComercial: e.target.value })}
               fullWidth
+              required
               placeholder="Ingrese el nombre comercial"
               size="small"
               className="form-input"
+              error={hasFieldError('nombreComercial', supplier.nombreComercial)}
+              helperText={getFieldErrorMessage('nombreComercial', supplier.nombreComercial)}
+              inputProps={{ maxLength: 100 }}
             />
           </Box>
 
@@ -83,9 +139,12 @@ const SupplierFormDialog = ({
               onChange={(e) => onSupplierChange({ ...supplier, identificacionTributaria: e.target.value })}
               fullWidth
               required
-              placeholder="Ingrese el RUC"
+              placeholder="Ingrese el RUC (11 dígitos)"
               size="small"
               className="form-input"
+              error={hasFieldError('identificacionTributaria', supplier.identificacionTributaria)}
+              helperText={getFieldErrorMessage('identificacionTributaria', supplier.identificacionTributaria)}
+              inputProps={{ maxLength: 11, pattern: '[0-9]*' }}
             />
           </Box>
 
@@ -97,9 +156,12 @@ const SupplierFormDialog = ({
               value={supplier.telefono}
               onChange={(e) => onSupplierChange({ ...supplier, telefono: e.target.value })}
               fullWidth
+              required
               placeholder="Ingrese el teléfono"
               size="small"
               className="form-input"
+              error={hasFieldError('telefono', supplier.telefono)}
+              helperText={getFieldErrorMessage('telefono', supplier.telefono)}
             />
           </Box>
 
@@ -116,6 +178,8 @@ const SupplierFormDialog = ({
               placeholder="Ingrese el email"
               size="small"
               className="form-input"
+              error={hasFieldError('email', supplier.email)}
+              helperText={getFieldErrorMessage('email', supplier.email)}
             />
           </Box>
 
@@ -127,9 +191,13 @@ const SupplierFormDialog = ({
               value={supplier.direccion}
               onChange={(e) => onSupplierChange({ ...supplier, direccion: e.target.value })}
               fullWidth
+              required
               placeholder="Ingrese la dirección"
               size="small"
               className="form-input"
+              error={hasFieldError('direccion', supplier.direccion)}
+              helperText={getFieldErrorMessage('direccion', supplier.direccion)}
+              inputProps={{ maxLength: 200 }}
             />
           </Box>
 
@@ -139,13 +207,22 @@ const SupplierFormDialog = ({
             </Typography>
             <TextField
               select
-              value={supplier.pais}
+              value={supplier.pais || ''}
               onChange={(e) => onSupplierChange({ ...supplier, pais: e.target.value })}
               fullWidth
-              placeholder="Seleccione un país"
+              required
               size="small"
               className="form-input"
+              error={hasFieldError('pais', supplier.pais)}
+              helperText={getFieldErrorMessage('pais', supplier.pais)}
+              displayEmpty
+              SelectProps={{
+                displayEmpty: true
+              }}
             >
+              <MenuItem value="" disabled>
+                Seleccione país
+              </MenuItem>
               {countries.map((pais) => (
                 <MenuItem key={pais} value={pais}>{pais}</MenuItem>
               ))}
@@ -160,9 +237,12 @@ const SupplierFormDialog = ({
               value={supplier.sitioWeb}
               onChange={(e) => onSupplierChange({ ...supplier, sitioWeb: e.target.value })}
               fullWidth
-              placeholder="Ingrese el sitio web"
+              required
+              placeholder="https://ejemplo.com"
               size="small"
               className="form-input"
+              error={hasFieldError('sitioWeb', supplier.sitioWeb)}
+              helperText={getFieldErrorMessage('sitioWeb', supplier.sitioWeb)}
             />
           </Box>
 
@@ -175,9 +255,13 @@ const SupplierFormDialog = ({
               value={supplier.facturacionAnual}
               onChange={(e) => onSupplierChange({ ...supplier, facturacionAnual: Number(e.target.value) })}
               fullWidth
+              required
               placeholder="Ingrese la facturación anual"
               size="small"
               className="form-input"
+              error={hasFieldError('facturacionAnual', supplier.facturacionAnual)}
+              helperText={getFieldErrorMessage('facturacionAnual', supplier.facturacionAnual)}
+              inputProps={{ min: 0, step: 0.01 }}
             />
           </Box>
 
@@ -188,9 +272,8 @@ const SupplierFormDialog = ({
           Cancelar
         </Button>
         <Button
-          onClick={onSubmit}
+          onClick={handleSubmit}
           variant="contained"
-          disabled={!(supplier.razonSocial && supplier.identificacionTributaria && supplier.email)}
           className="submit-button"
         >
           {isEdit ? 'Actualizar Proveedor' : 'Agregar Proveedor'}
