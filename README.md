@@ -101,7 +101,7 @@ El proyecto puede ser desplegado usando servicios como:
 - [Netlify](https://www.netlify.com/)
 - [Servidor propio](http://13.222.89.27/)
 
-<img width="1838" height="877" alt="image" src="https://github.com/user-attachments/assets/568a4928-9873-45e8-80b1-f24c68ebb763" />
+<img width="1511" height="723" alt="image" src="https://github.com/user-attachments/assets/5f647062-d36c-425d-80a5-007e43da21a2" />
 
 
 ## 📜 Licencia
