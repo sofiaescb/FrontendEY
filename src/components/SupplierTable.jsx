@@ -19,15 +19,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import PublicIcon from '@mui/icons-material/Public';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const getChipColor = (status) => {
-  switch (status) {
-    case 'Active': return 'success';
-    case 'Inactive': return 'default';
-    case 'Pending': return 'warning';
-    default: return 'default';
-  }
-};
-
 const SupplierTable = ({ suppliers, searchTerm, onView, onEdit, onDelete, onScreen }) => {
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;

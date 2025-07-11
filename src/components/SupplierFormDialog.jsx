@@ -28,14 +28,12 @@ const SupplierFormDialog = ({
   const countries = ['Perú', 'Chile', 'México', 'Argentina', 'Colombia', 'Brasil', 'Ecuador'];
   const [showValidationErrors, setShowValidationErrors] = useState(false);
 
-  // Resetear errores cuando se abre/cierra el dialog
   useEffect(() => {
     if (open) {
       setShowValidationErrors(false);
     }
   }, [open]);
 
-  // Nuevo useEffect para limpiar el formulario cuando se cierre en modo agregar
   useEffect(() => {
     if (!open && mode === 'add' && onSupplierChange) {
       const emptySupplier = {
@@ -61,9 +59,8 @@ const SupplierFormDialog = ({
     // Validar todos los campos
     if (areAllFieldsValid(supplier)) {
       onSubmit();
-      setShowValidationErrors(false); // Resetear después de envío exitoso
+      setShowValidationErrors(false); 
     }
-    // Si hay errores, se mantendrán visibles debido a showValidationErrors = true
   };
 
   const getFieldErrorMessage = (fieldName, value) => {

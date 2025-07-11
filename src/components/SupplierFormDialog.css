@@ -1,6 +1,3 @@
-/* SupplierFormDialog.css - Estilos reutilizables para formularios de diálogo */
-
-/* Header del diálogo */
 .dialog-header {
   display: flex;
   justify-content: space-between;
@@ -29,7 +26,6 @@
   color: #666;
 }
 
-/* Contenido del diálogo */
 .dialog-content {
   padding: 16px;
   background-color: #fafafa;
@@ -46,7 +42,6 @@
   padding-right: 4px;
 }
 
-/* Filas del formulario */
 .form-row {
   display: flex;
   align-items: flex-start;
@@ -63,7 +58,6 @@
   margin-top: 8px;
 }
 
-/* Estilos para inputs */
 .form-input {
   background-color: white;
 }
@@ -107,7 +101,6 @@
   margin-left: 0;
 }
 
-/* Estilos para errores */
 .form-input .MuiOutlinedInput-root.Mui-error fieldset {
   border-color: #f44336;
 }
@@ -116,7 +109,6 @@
   color: #f44336;
 }
 
-/* Acciones del diálogo */
 .dialog-actions {
   padding: 16px;
   background-color: #f8f9fa;
@@ -147,7 +139,6 @@
   color: #999;
 }
 
-/* Ajustes para evitar scroll */
 .MuiDialog-paper {
   max-height: 90vh !important;
   height: 80vh !important;
@@ -171,7 +162,6 @@
   flex-shrink: 0 !important;
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;
@@ -206,7 +196,6 @@
   }
 }
 
-/* Estilos para mostrar valores (ViewSupplierDialog) */
 .form-display-value {
   background-color: #f8f9fa;
   border: 1px solid #e0e0e0;
@@ -233,7 +222,6 @@
   text-decoration: underline;
 }
 
-/* Responsivo para valores mostrados */
 @media (max-width: 768px) {
   .form-display-value {
     padding: 6px 10px;

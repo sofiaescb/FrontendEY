@@ -82,7 +82,6 @@ export default function ScreeningDialog({ open, onClose, supplier }) {
   };
 
   const handleClose = () => {
-    // Reset all state to initial values
     setStep(0);
     setSelectedSources([]);
     setActiveTab(0);
