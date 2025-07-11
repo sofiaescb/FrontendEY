@@ -1,5 +1,5 @@
 // src/components/SupplierTable.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -11,7 +11,7 @@ import {
   Typography,
   IconButton,
   Box,
-  Chip
+  Pagination
 } from '@mui/material';
 import BusinessIcon from '@mui/icons-material/Business';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -29,12 +29,27 @@ const getChipColor = (status) => {
 };
 
 const SupplierTable = ({ suppliers, searchTerm, onView, onEdit, onDelete, onScreen }) => {
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 5;
+
   const filtered = suppliers.filter(supplier =>
     supplier.razonSocial.toLowerCase().includes(searchTerm.toLowerCase()) ||
     supplier.nombreComercial.toLowerCase().includes(searchTerm.toLowerCase()) ||
     supplier.telefono.toLowerCase().includes(searchTerm.toLowerCase()) ||
     supplier.pais.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const totalPages = Math.ceil(filtered.length / rowsPerPage);
+  const paginatedSuppliers = filtered.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  // Reset page when search term changes
+  React.useEffect(() => {
+    setPage(1);
+  }, [searchTerm]);
 
   return (
     <>
@@ -50,7 +65,7 @@ const SupplierTable = ({ suppliers, searchTerm, onView, onEdit, onDelete, onScre
             </TableRow>
           </TableHead>
           <TableBody>
-            {filtered.map((supplier) => (
+            {paginatedSuppliers.map((supplier) => (
               <TableRow key={supplier.id}>
                 <TableCell>{supplier.razonSocial}</TableCell>
                 <TableCell>{supplier.telefono}</TableCell>
@@ -69,6 +84,17 @@ const SupplierTable = ({ suppliers, searchTerm, onView, onEdit, onDelete, onScre
           </TableBody>
         </Table>
       </TableContainer>
+
+      {filtered.length > rowsPerPage && (
+        <Box display="flex" justifyContent="center" mb={2}>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+            color="primary"
+          />
+        </Box>
+      )}
 
       {filtered.length === 0 && (
         <Box textAlign="center" py={4}>

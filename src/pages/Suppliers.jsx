@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
 import {
   Container,
   Box,
@@ -31,13 +32,17 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const fetchAndSetSuppliers = async () => {
+    setLoading(true);
     try {
       const data = await getSuppliers();
       setSuppliers(data);
     } catch (error) {
       console.error('Error al obtener proveedores', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -162,14 +167,20 @@ const Suppliers = () => {
           </Stack>
         </Box>
 
-        <SupplierTable
-          suppliers={suppliers}
-          searchTerm={searchTerm}
-          onView={handleViewSupplier}
-          onEdit={handleEditSupplier}
-          onDelete={handleDeleteSupplier}
-          onScreen={handleScreeningSupplier}
-        />
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
+            <CircularProgress size={40} sx={{ color: '#FFD600' }} />
+          </Box>
+        ) : (
+          <SupplierTable
+            suppliers={suppliers}
+            searchTerm={searchTerm}
+            onView={handleViewSupplier}
+            onEdit={handleEditSupplier}
+            onDelete={handleDeleteSupplier}
+            onScreen={handleScreeningSupplier}
+          />
+        )}
 
         <SupplierFormDialog
           open={isAddDialogOpen}
@@ -199,9 +210,6 @@ const Suppliers = () => {
           open={isScreeningDialogOpen}
           onClose={() => setIsScreeningDialogOpen(false)}
           supplier={selectedSupplier}
-          url={screeningUrl}
-          onUrlChange={setScreeningUrl}
-          onSubmit={handleStartScreening}
         />
         <Snackbar
           open={snackbar.open}

@@ -1,20 +1,27 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = '/api/screening';
+const SCRAPING_API_URL = import.meta.env.VITE_API_BASE_URL+"screening";
+const TOKEN = import.meta.env.VITE_API_TOKEN;
 
-/**
- * Ejecuta una búsqueda en listas de alto riesgo.
- * @param {Object} params
- * @param {string} params.Proveedor - Nombre del proveedor a buscar
- * @param {string} params.Fuente - Fuente de la cual obtener resultados (ej: "ofac")
- * @returns {Promise<Object>} Resultado del scraping
- */
-export const ejecutarBusquedaScreening = async ({ Proveedor, Fuente }) => {
-    const queryParams = new URLSearchParams();
+export async function getScreeningResults(fuente, proveedor) {
+  const params = new URLSearchParams({ Fuente: fuente, Proveedor: proveedor });
+  const res = await axios.get(`${SCRAPING_API_URL}?${params.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`
+    }
+  });
+  return res.data;
+}
 
-    if (Fuente) queryParams.append('Fuente', Fuente);
-    if (Proveedor) queryParams.append('Proveedor', Proveedor);
-  
-    const url = `${API_URL}?${queryParams.toString()}`;
-    return axios.get(url).then(res => res.data);
-};
+export async function getMultipleScreeningResults(fuentes, proveedor) {
+  const results = {};
+  for (const fuente of fuentes) {
+    try {
+      const data = await getScreeningResults(fuente, proveedor);
+      results[fuente] = data;
+    } catch (error) {
+      results[fuente] = { error: error.message, resultados: [] };
+    }
+  }
+  return results;
+}
