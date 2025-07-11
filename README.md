@@ -1,12 +1,88 @@
-# React + Vite
+# FrontendEY
+Este proyecto consiste en una aplicación web SPA (Single Page Application) desarrollada con React y Vite. Está diseñada para facilitar la gestión de proveedores y realizar screening (cruce) contra listas de alto riesgo como OFAC y World Bank.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🧩 Tecnologías utilizadas
 
-Currently, two official plugins are available:
+- React 18 + Vite
+- JavaScript
+- Material UI (MUI)
+- Axios (para llamadas HTTP)
+- React Router
+- Vercel/Netlify (para despliegue opcional)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Instrucciones para desplegar la solución
 
-## Expanding the ESLint configuration
+Este frontend puede ejecutarse localmente o desplegarse en plataformas como Netlify o Vercel.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/sofiaescb/FrontendEY.git
+cd FrontendEY
+```
+
+### 2. Ejecutar la aplicación en desarrollo
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en:
+
+```
+http://localhost:5173
+```
+
+> Asegurarse de que el backend esté corriendo en paralelo en `http://localhost:7267` o la URL correspondiente.
+
+## 🧪 Funcionalidades principales
+
+- 📋 Listado de proveedores con opciones: Ver, Editar, Eliminar, Screening.
+- ➕ Crear nuevos proveedores mediante formulario con validaciones.
+- ✏️ Editar proveedores existentes (formulario reutilizado).
+- 🧼 Validaciones en formularios: campos obligatorios, RUC (11 dígitos), email y URL válidas.
+- ✅ Mensajes de confirmación ante operaciones exitosas.
+- 🔎 Pantalla de screening con selector de fuente y resultados en tabla.
+- 📊 Resultados formateados según atributos de cada fuente (OFAC, World Bank).
+
+
+
+## 📁 Estructura del proyecto
+
+```
+FrontendEY/
+│
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── theme.js
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+## 🔗 Conexión con el backend
+
+Esta aplicación consume la API disponible en el repositorio:
+[https://github.com/sofiaescb/BackendEY](https://github.com/sofiaescb/BackendEY)
+
+## 📦 Despliegue
+
+El proyecto puede ser desplegado usando servicios como:
+
+- [Vercel](https://vercel.com/)
+- [Netlify](https://www.netlify.com/)
+- [Servidor propio](http://3.85.36.85/)
+
+<img width="1838" height="877" alt="image" src="https://github.com/user-attachments/assets/568a4928-9873-45e8-80b1-f24c68ebb763" />
+
+
+## 📜 Licencia
+
+Repositorio creado como parte de una prueba técnica para EY – FY26.
