@@ -37,7 +37,6 @@ const SupplierTable = ({ suppliers, searchTerm, onView, onEdit, onDelete, onScre
     setPage(value);
   };
 
-  // Reset page when search term changes
   React.useEffect(() => {
     setPage(1);
   }, [searchTerm]);
